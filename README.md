@@ -1,4 +1,4 @@
 SPARQLtoPIG
 ===========
 
-This application converts given SPARQL query to Pig Latin query. The idea is to use Apache Hadoop to store the RDF data, then use generated Pig Latin query to retrieve results.
+This application converts given SPARQL query to Apache Pig query. The idea is to store the RDF data in HDFS, then use the generated Apache Pig query to retrieve the records.
