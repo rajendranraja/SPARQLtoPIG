@@ -1,0 +1,21 @@
+[?x, ?z, ?a]
+A = LOAD 'file.nt' USING PigStorage(' ') AS (subject0:chararray, object0:chararray, predicate0:chararray);
+B = FILTER A BY $1 == '<http://purl.uniprot.org/core/reviewed>';
+B = FOREACH B GENERATE $0 AS x0, $2 AS y0;
+C = FILTER A BY $1 == '<http://purl.uniprot.org/core/created>';
+C = FOREACH C GENERATE $0 AS x1, $2 AS b1;
+D = FILTER A BY $1 == '<http://purl.uniprot.org/core/mnemonic>' AND $2 == '"003L_IIV3"';
+D = FOREACH D GENERATE $0 AS x2;
+E = FILTER A BY $1 == '<http://purl.uniprot.org/core/citation>';
+E = FOREACH E GENERATE $0 AS x3, $2 AS z3;
+F = FILTER A BY $1 == '<http://purl.uniprot.org/core/author>';
+F = FOREACH F GENERATE $0 AS z4, $2 AS a4;
+j0 = JOIN B by x0, C by x1;
+j0 = FOREACH j0 GENERATE $0 AS x0, y0, b1;
+j1 = JOIN j0 by x0, D by x2;
+j1 = FOREACH j1 GENERATE $0 AS x0, y0, b1;
+j2 = JOIN j1 by x0, E by x3;
+j2 = FOREACH j2 GENERATE $0 AS x0, y0, b1, z3;
+j3 = JOIN j2 by z0, F by z4;
+j3 = FOREACH j3 GENERATE $0 AS x0, y0, b1, z3, a4;
+DUMP j3;
